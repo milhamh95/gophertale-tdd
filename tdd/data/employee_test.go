@@ -20,10 +20,13 @@ func TestEmployeeService(t *testing.T) {
 		}
 
 		es := data.NewEmployeeService()
-		id := es.Add(e)
+		id, err := es.Add(e)
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
 
-		if id != e.ID {
-			t.Fatalf("got (%v), want (%v)", id, e.ID)
+		if *id != e.ID {
+			t.Fatalf("got (%v), want (%v)", *id, e.ID)
 		}
 	})
 }

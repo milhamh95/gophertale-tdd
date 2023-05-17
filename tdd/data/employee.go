@@ -19,7 +19,12 @@ func NewEmployeeService() *EmployeeService {
 	}
 }
 
-func (es *EmployeeService) Add(e Employee) string {
+// use *string in case something goes wrong
+// we want to make it very clear to whoever
+// call add, can't use this value.
+// if we use string, the caller can use the value.
+// alternative, caller need to check id is empty or not
+func (es *EmployeeService) Add(e Employee) (*string, error) {
 	es.data[e.ID] = e
-	return e.ID
+	return &e.ID, nil
 }
