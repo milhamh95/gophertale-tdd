@@ -1,4 +1,4 @@
-package employees_test
+package data_test
 
 import "testing"
 
