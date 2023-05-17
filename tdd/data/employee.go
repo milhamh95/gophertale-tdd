@@ -1,6 +1,8 @@
 package data
 
-type EmployeeService struct{}
+type EmployeeService struct {
+	data map[string]Employee
+}
 
 // use pointer receiver is because we
 // will adding a new employee
@@ -12,5 +14,6 @@ type Employee struct {
 }
 
 func (es *EmployeeService) Add(e Employee) string {
-	return ""
+	es.data[e.ID] = e
+	return e.ID
 }
