@@ -1,6 +1,7 @@
 package data_test
 
 import (
+	"errors"
 	"gophertale-tdd/tdd/data"
 	"testing"
 )
@@ -27,6 +28,24 @@ func TestEmployeeService(t *testing.T) {
 
 		if *id != e.ID {
 			t.Fatalf("got (%v), want (%v)", *id, e.ID)
+		}
+	})
+
+	t.Run("add empty name employee", func(t *testing.T) {
+		e := data.Employee{
+			ID:       "A-1",
+			JobTitle: "The boss of everything",
+		}
+
+		es := data.NewEmployeeService()
+		id, err := es.Add(e)
+		if id != nil {
+			t.Fatalf("unexpected non nil id: %v", *id)
+		}
+
+		expectedErr := errors.New("empty name")
+		if err == nil || err.Error() != expectedErr.Error() {
+			t.Fatalf("got (%v), want (%v)", err, expectedErr)
 		}
 	})
 }
