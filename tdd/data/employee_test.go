@@ -19,7 +19,7 @@ func TestEmployeeService(t *testing.T) {
 			JobTitle: "The boss of everything",
 		}
 
-		es := data.EmployeeService{}
+		es := data.NewEmployeeService()
 		id := es.Add(e)
 
 		if id != e.ID {
