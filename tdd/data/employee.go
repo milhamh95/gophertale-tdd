@@ -1,5 +1,7 @@
 package data
 
+import "errors"
+
 type EmployeeService struct {
 	data map[string]Employee
 }
@@ -25,6 +27,10 @@ func NewEmployeeService() *EmployeeService {
 // if we use string, the caller can use the value.
 // alternative, caller need to check id is empty or not
 func (es *EmployeeService) Add(e Employee) (*string, error) {
+	if e.Name == "" {
+		return nil, errors.New("empty name")
+	}
+
 	es.data[e.ID] = e
 	return &e.ID, nil
 }
